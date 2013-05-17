@@ -5,7 +5,7 @@
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tommy351/hexo-plugins.git"
+    "url": "git://github.com/vfasky/hexo-summarizer.git"
   },
   "keywords": [
     "summarization",

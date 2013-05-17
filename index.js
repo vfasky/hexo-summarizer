@@ -171,7 +171,7 @@
     var v;
 
     v = summarize(html);
-    return "        <meta name=\"description\" content=\"" + (v.summarizes.join(';')) + "\">\n        <meta name=\"keywords\" content=\"" + (v.words.join(',')) + "\">    ";
+    return "        <meta name=\"description\" content=\"" + (v.summarizes.join(';').replace('"', '\'')) + "\">\n        <meta name=\"keywords\" content=\"" + (v.words.join(',').replace('"', '\'')) + "\">    ";
   });
 
 }).call(this);
