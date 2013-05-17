@@ -1,0 +1,33 @@
+{
+  "name": "hexo-summarizer",
+  "version": "0.0.1",
+  "description": "Automatic summarization plugin for Hexo",
+  "main": "index",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tommy351/hexo-plugins.git"
+  },
+  "keywords": [
+    "summarization",
+    "blog",
+    "cms",
+    "segment",
+    "hexo"
+  ],
+  "author": {
+    "name": "vfasky",
+    "email": "vfasky@gmail.com",
+    "url": "http://vfasky.com/"
+  },
+  "license": "BSD",
+  "engines": {
+    "hexo": ">= 1.0.0"
+  },
+  "dependencies": {
+    "node-segment": "*"
+  },
+  "readme": "# Automatic summarization plugin for [Hexo]\n\n## Usage\n\n### Install\n\n```\nnpm install hexo-summarizer --save\n```\n\n### Enable\n\nAdd `hexo-summarizer` to `plugins` in `_config.yml`.\n\n``` yaml\nplugins:\n- hexo-summarizer\n```\n\n### Disable\n\nRemove `hexo-summarizer` from `plugins` in `_config.yml`.\n\n``` yaml\nplugins:\n- hexo-summarizer\n```\n\n### Update\n\nExecute the following command.\n\n```\nnpm update\n```\n\n### Uninstall\n\nExecute the following command. Don't forget to disable the plugin before uninstalling.\n\n```\nnpm uninstall hexo-summarizer\n```\n\n[Hexo]: http://zespia.tw/hexo",
+  "readmeFilename": "README.md",
+  "_id": "hexo-summarizer@0.0.1",
+  "_from": "hexo-summarizer@",
+}
