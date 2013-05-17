@@ -6,7 +6,7 @@
 最近看了 阮一峰 关于 [TF-IDF与余弦相似性的应用](http://www.ruanyifeng.com/blog/2013/03/tf-idf.html) 的一系列文章， 深受启发。
 
 
-加入发现一个非常好 [blog](http://zespia.tw/hexo/) 及 [皮肤](https://github.com/yhben/hexo-theme-memoir)
+加上发现一个非常好的 [blog](http://zespia.tw/hexo/) 及 [皮肤](https://github.com/yhben/hexo-theme-memoir)
 
 
 于时心血来潮，写个插件练习下。
@@ -42,3 +42,4 @@ plugins:
 <meta name="description" content="<%= config.description %>">
 <% } %>
 ```
+
