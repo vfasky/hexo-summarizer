@@ -86,10 +86,22 @@
   };
 
   get_word_count = function(word, sentences) {
-    var count, not_good, v, w, _i, _j, _len, _len1, _ref, _ref1;
+    var count, not_good, txt, v, w, _i, _j, _len, _len1, _ref, _ref1;
 
     not_good = [8192, 4096, 262144, 2048];
-    if (word.w.toString().trim().length < 2 || (_ref = word.p, __indexOf.call(not_good, _ref) >= 0)) {
+    txt = word.w.toString().trim();
+    if (/.*[\u4e00-\u9fa5]+.*$/.test(txt) && txt.length < 2) {
+      return false;
+    }
+    if (txt.length < 2) {
+      return false;
+    }
+    if (txt.length < 3) {
+      if (txt.toUpperCase() !== txt) {
+        return false;
+      }
+    }
+    if (_ref = word.p, __indexOf.call(not_good, _ref) >= 0) {
       return false;
     }
     count = 0;
@@ -110,7 +122,7 @@
   };
 
   summarize = function(html) {
-    var data, hot_words, k, keyword, sentences, summarizes, txt, v, v2, word_count, words, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _len6, _m, _n, _o, _ref, _ref1, _ref2;
+    var data, hot_words, k, keyword, pattern, rs, sentences, summarizes, txt, v, v2, v3, word_count, word_line, words, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _len6, _len7, _m, _n, _o, _p, _ref, _ref1, _ref2, _ref3;
 
     txt = html.replace(/<\/p>/g, '\n').replace(/<\/?[^>]*>/g, '');
     sentences = [];
@@ -125,10 +137,26 @@
           v2 = _ref2[_k];
           v2 = v2.trim();
           if (v2 !== '') {
-            sentences.push({
-              sentence: v2,
-              words: segment.doSegment(v2)
-            });
+            word_line = v2.toString().trim();
+            pattern = new RegExp("[`~!@#$^&*()=|{}''\\[\\]<>~！#%lt￥……&*（）&|【】‘”“'，、？]");
+            rs = [];
+            _ref3 = word_line.split('');
+            for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {
+              v3 = _ref3[_l];
+              rs.push(v3.replace(pattern, '').toString());
+            }
+            word_line = rs.join('').toString();
+            if (rs.length) {
+              if (/.*[\u4e00-\u9fa5]+.*$/.test(word_line) && word_line.length < 15) {
+                continue;
+              } else if (word_line.length < 20) {
+                continue;
+              }
+              sentences.push({
+                sentence: word_line,
+                words: segment.doSegment(v2)
+              });
+            }
           }
         }
       }
@@ -136,10 +164,10 @@
     words = [];
     hot_words = get_top_TF(sentences);
     word_count = hot_words.length * .10;
-    if (word_count <= 1) {
-      word_count = 1;
+    if (word_count <= 10) {
+      word_count = 10;
     }
-    for (k = _l = 0, _len3 = hot_words.length; _l < _len3; k = ++_l) {
+    for (k = _m = 0, _len4 = hot_words.length; _m < _len4; k = ++_m) {
       v = hot_words[k];
       if (k === word_count) {
         break;
@@ -147,8 +175,8 @@
       words.push(v.word.w);
     }
     data = [];
-    for (_m = 0, _len4 = sentences.length; _m < _len4; _m++) {
-      v = sentences[_m];
+    for (_n = 0, _len5 = sentences.length; _n < _len5; _n++) {
+      v = sentences[_n];
       data.push({
         sentence: v.sentence,
         val: get_cluster_val(v, words)
@@ -158,7 +186,7 @@
       return b.val - a.val;
     });
     summarizes = [];
-    for (k = _n = 0, _len5 = data.length; _n < _len5; k = ++_n) {
+    for (k = _o = 0, _len6 = data.length; _o < _len6; k = ++_o) {
       v = data[k];
       if (k === 3) {
         break;
@@ -166,7 +194,7 @@
       summarizes.push(v.sentence);
     }
     keyword = [];
-    for (k = _o = 0, _len6 = hot_words.length; _o < _len6; k = ++_o) {
+    for (k = _p = 0, _len7 = hot_words.length; _p < _len7; k = ++_p) {
       v = hot_words[k];
       if (k === 10) {
         break;
@@ -175,7 +203,7 @@
     }
     return {
       summarizes: summarizes,
-      words: words
+      words: keyword
     };
   };
 

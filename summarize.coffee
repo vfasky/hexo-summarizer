@@ -63,9 +63,24 @@ get_top_TF = (sentences)->
 # 取一个词的出现次数
 get_word_count = (word, sentences)->
     not_good = [8192, 4096, 262144, 2048]
-    #console.log word.w.length
-    if word.w.toString().trim().length < 2 or word.p in not_good 
+    
+    txt = word.w.toString().trim()
+
+    # 判断是否中文, 小于 2 个中文字: not_good
+    if /.*[\u4e00-\u9fa5]+.*$/.test(txt) and txt.length < 2
         return false
+
+    if txt.length < 2
+        return false
+
+    if txt.length < 3
+        # 如是不是专有名，小于 4 位 ： not_good
+        if txt.toUpperCase() != txt
+            return false
+
+    if word.p in not_good 
+        return false
+
     count = 0
     for v in sentences
         for w in v.words
@@ -85,16 +100,31 @@ summarize = (html) ->
             for v2 in v.split('.')
                 v2 = v2.trim()
                 if v2 != ''
-                    sentences.push 
-                        sentence : v2
-                        words : segment.doSegment v2
+                    word_line = v2.toString().trim()
+                    pattern   = new RegExp("[`~!@#$^&*()=|{}''\\[\\]<>~！#%lt￥……&*（）&|【】‘”“'，、？]") 
+                    rs        = []; 
+                    for v3 in word_line.split('')
+                        rs.push v3.replace(pattern, '').toString()
+
+                    word_line = rs.join('').toString()
+                    #console.log rs.length
+                    if rs.length
+                        # 如果是中文，小于20字的句子: not_good
+                        if /.*[\u4e00-\u9fa5]+.*$/.test(word_line) and word_line.length < 15
+                            continue 
+                        else if word_line.length < 20
+                            continue
+                        #console.log word_line
+                        sentences.push 
+                            sentence : word_line
+                            words : segment.doSegment v2
                     
     words     = []
     hot_words = get_top_TF sentences
 
     # 取前 10 % 的关键字
     word_count = hot_words.length * .10
-    word_count = 1 if word_count <= 1
+    word_count = 10 if word_count <= 10
 
     for v, k in hot_words
         break if k == word_count
@@ -124,7 +154,7 @@ summarize = (html) ->
     #console.log keyword
     {
         summarizes : summarizes 
-        words : words
+        words : keyword
     }
 
 
