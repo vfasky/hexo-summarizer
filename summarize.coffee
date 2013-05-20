@@ -51,7 +51,7 @@ get_top_TF = (sentences)->
             if word_count 
                 is_in = false
                 for w in _words
-                    if w.word.p == word_count.word.p
+                    if w.word.w == word_count.word.w 
                         is_in = true
                         break
                 if false == is_in
@@ -64,7 +64,7 @@ get_top_TF = (sentences)->
 get_word_count = (word, sentences)->
     not_good = [8192, 4096, 262144, 2048]
     #console.log word.w.length
-    if word.w.length < 2 or word.p in not_good 
+    if word.w.toString().trim().length < 2 or word.p in not_good 
         return false
     count = 0
     for v in sentences
@@ -92,9 +92,12 @@ summarize = (html) ->
     words     = []
     hot_words = get_top_TF sentences
 
-    # 取前10个关键字
+    # 取前 10 % 的关键字
+    word_count = hot_words.length * .10
+    word_count = 1 if word_count <= 1
+
     for v, k in hot_words
-        break if k == 10
+        break if k == word_count
         words.push v.word.w
 
     data = []
@@ -111,15 +114,17 @@ summarize = (html) ->
         break if k == 3
         summarizes.push v.sentence
 
+    # 取前10个关键字
     keyword = []
-    for v in words
-        if v not in keyword
-            keyword.push v 
+    for v, k in hot_words
+        break if k == 10
+        keyword.push v.word.w
 
-    #console.log summarizes
+
+    #console.log keyword
     {
         summarizes : summarizes 
-        words : keyword
+        words : words
     }
 
 

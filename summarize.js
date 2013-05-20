@@ -69,7 +69,7 @@
           is_in = false;
           for (_k = 0, _len2 = _words.length; _k < _len2; _k++) {
             w = _words[_k];
-            if (w.word.p === word_count.word.p) {
+            if (w.word.w === word_count.word.w) {
               is_in = true;
               break;
             }
@@ -89,7 +89,7 @@
     var count, not_good, v, w, _i, _j, _len, _len1, _ref, _ref1;
 
     not_good = [8192, 4096, 262144, 2048];
-    if (word.w.length < 2 || (_ref = word.p, __indexOf.call(not_good, _ref) >= 0)) {
+    if (word.w.toString().trim().length < 2 || (_ref = word.p, __indexOf.call(not_good, _ref) >= 0)) {
       return false;
     }
     count = 0;
@@ -110,7 +110,7 @@
   };
 
   summarize = function(html) {
-    var data, hot_words, k, keyword, sentences, summarizes, txt, v, v2, words, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _len6, _m, _n, _o, _ref, _ref1, _ref2;
+    var data, hot_words, k, keyword, sentences, summarizes, txt, v, v2, word_count, words, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _len6, _m, _n, _o, _ref, _ref1, _ref2;
 
     txt = html.replace(/<\/p>/g, '\n').replace(/<\/?[^>]*>/g, '');
     sentences = [];
@@ -135,9 +135,13 @@
     }
     words = [];
     hot_words = get_top_TF(sentences);
+    word_count = hot_words.length * .10;
+    if (word_count <= 1) {
+      word_count = 1;
+    }
     for (k = _l = 0, _len3 = hot_words.length; _l < _len3; k = ++_l) {
       v = hot_words[k];
-      if (k === 10) {
+      if (k === word_count) {
         break;
       }
       words.push(v.word.w);
@@ -162,15 +166,16 @@
       summarizes.push(v.sentence);
     }
     keyword = [];
-    for (_o = 0, _len6 = words.length; _o < _len6; _o++) {
-      v = words[_o];
-      if (__indexOf.call(keyword, v) < 0) {
-        keyword.push(v);
+    for (k = _o = 0, _len6 = hot_words.length; _o < _len6; k = ++_o) {
+      v = hot_words[k];
+      if (k === 10) {
+        break;
       }
+      keyword.push(v.word.w);
     }
     return {
       summarizes: summarizes,
-      words: keyword
+      words: words
     };
   };
 
