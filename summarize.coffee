@@ -91,7 +91,7 @@ get_word_count = (word, sentences)->
     }
 
 summarize = (html) ->
-    txt = html.replace(/<\/p>/g, '\n').replace(/<\/?[^>]*>/g,'')
+    txt = html.trim().replace(/<\/p>/g, '\n').replace(/<\/?[^>]*>/g,'')
     # 简单的分句子
     sentences = []
     for v in txt.split('\n')
