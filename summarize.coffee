@@ -66,17 +66,15 @@ get_word_count = (word, sentences)->
     
     txt = word.w.toString().trim()
 
-    # 判断是否中文, 小于 2 个中文字: not_good
-    if /.*[\u4e00-\u9fa5]+.*$/.test(txt) and txt.length < 2
-        return false
-
     if txt.length < 2
         return false
 
-    if txt.length < 3
-        # 如是不是专有名，小于 4 位 ： not_good
+  
+    if false == /.*[\u4e00-\u9fa5]+.*$/.test(txt) and txt.length <= 2
+        # 如是不是专有名，小于 3 位 ： not_good
         if txt.toUpperCase() != txt
             return false
+
 
     if word.p in not_good 
         return false
@@ -88,7 +86,7 @@ get_word_count = (word, sentences)->
                 count = count + 1
     {
         count : count ,
-        word : word
+        word : txt
     }
 
 summarize = (html) ->
@@ -101,7 +99,7 @@ summarize = (html) ->
                 v2 = v2.trim()
                 if v2 != ''
                     word_line = v2.toString().trim()
-                    pattern   = new RegExp("[`~!@#$^&*()=|{}''\\[\\]<>~！#%lt￥……&*（）&|【】‘”“'，、？]") 
+                    pattern   = new RegExp("[`~@#$^&*()|{}''\\[\\]<>~#%lt￥……&*（）&|【】‘”“'、？]") 
                     rs        = []; 
                     for v3 in word_line.split('')
                         rs.push v3.replace(pattern, '').toString()
@@ -109,8 +107,8 @@ summarize = (html) ->
                     word_line = rs.join('').toString()
                     #console.log rs.length
                     if rs.length
-                        # 如果是中文，小于20字的句子: not_good
-                        if /.*[\u4e00-\u9fa5]+.*$/.test(word_line) and word_line.length < 15
+                        # 如果是中文，小于15字的句子: not_good
+                        if /.*[\u4e00-\u9fa5]+.*$/.test(word_line) and word_line.length < 10
                             continue 
                         else if word_line.length < 20
                             continue

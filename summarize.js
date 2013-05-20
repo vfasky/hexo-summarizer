@@ -90,13 +90,10 @@
 
     not_good = [8192, 4096, 262144, 2048];
     txt = word.w.toString().trim();
-    if (/.*[\u4e00-\u9fa5]+.*$/.test(txt) && txt.length < 2) {
-      return false;
-    }
     if (txt.length < 2) {
       return false;
     }
-    if (txt.length < 3) {
+    if (false === /.*[\u4e00-\u9fa5]+.*$/.test(txt) && txt.length <= 2) {
       if (txt.toUpperCase() !== txt) {
         return false;
       }
@@ -117,7 +114,7 @@
     }
     return {
       count: count,
-      word: word
+      word: txt
     };
   };
 
@@ -138,7 +135,7 @@
           v2 = v2.trim();
           if (v2 !== '') {
             word_line = v2.toString().trim();
-            pattern = new RegExp("[`~!@#$^&*()=|{}''\\[\\]<>~！#%lt￥……&*（）&|【】‘”“'，、？]");
+            pattern = new RegExp("[`~@#$^&*()|{}''\\[\\]<>~#%lt￥……&*（）&|【】‘”“'、？]");
             rs = [];
             _ref3 = word_line.split('');
             for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {
@@ -147,7 +144,7 @@
             }
             word_line = rs.join('').toString();
             if (rs.length) {
-              if (/.*[\u4e00-\u9fa5]+.*$/.test(word_line) && word_line.length < 15) {
+              if (/.*[\u4e00-\u9fa5]+.*$/.test(word_line) && word_line.length < 10) {
                 continue;
               } else if (word_line.length < 20) {
                 continue;
