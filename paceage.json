@@ -5,7 +5,7 @@
   "main": "index",
   "repository": {
     "type": "git",
-    "url": "http://github.com/vfasky/hexo-summarizer.git"
+    "url": "git://github.com/vfasky/hexo-summarizer.git"
   },
   "keywords": [
     "summarization",
@@ -20,11 +20,8 @@
     "url": "http://vfasky.com/"
   },
   "license": "BSD",
-  
   "dependencies": {
     "node-segment": "*"
   },
- 
   "readmeFilename": "README.md"
- 
 }
