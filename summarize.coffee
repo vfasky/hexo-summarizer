@@ -94,6 +94,7 @@ summarize = (html) ->
     txt = html.trim().replace(/<\/p>/g, '\n')
                      .replace(/<\/?[^>]*>/g,'')
                      .replace(/[ | ]*\n/g,'\n')
+                     .replace(/\\n\\n/g, '\n')
                      .replace(/&nbsp;/ig,'')
     # 简单的分句子
     sentences = []

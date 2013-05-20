@@ -121,7 +121,7 @@
   summarize = function(html) {
     var data, hot_words, k, keyword, pattern, rs, sentences, summarizes, txt, v, v2, v3, word_count, word_line, words, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _len5, _len6, _len7, _m, _n, _o, _p, _ref, _ref1, _ref2, _ref3;
 
-    txt = html.trim().replace(/<\/p>/g, '\n').replace(/<\/?[^>]*>/g, '').replace(/[ | ]*\n/g, '\n').replace(/&nbsp;/ig, '');
+    txt = html.trim().replace(/<\/p>/g, '\n').replace(/<\/?[^>]*>/g, '').replace(/[ | ]*\n/g, '\n').replace(/\\n\\n/g, '\n').replace(/&nbsp;/ig, '');
     sentences = [];
     _ref = txt.split('\n');
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
