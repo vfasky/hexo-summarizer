@@ -162,7 +162,6 @@
     }
     words = [];
     hot_words = get_top_TF(sentences);
-    console.log(hot_words);
     word_count = hot_words.length * .10;
     if (word_count <= 10) {
       word_count = 10;

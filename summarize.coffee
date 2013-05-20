@@ -121,7 +121,7 @@ summarize = (html) ->
                     
     words     = []
     hot_words = get_top_TF sentences
-    console.log hot_words
+    #console.log hot_words
 
     # 取前 10 % 的关键字
     word_count = hot_words.length * .10
