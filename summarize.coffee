@@ -108,9 +108,10 @@ summarize = (html) ->
                     #console.log rs.length
                     if rs.length
                         # 如果是中文，小于15字的句子: not_good
-                        if /.*[\u4e00-\u9fa5]+.*$/.test(word_line) and word_line.length < 10
-                            continue 
-                        else if word_line.length < 20
+                        if /.*[\u4e00-\u9fa5]+.*$/.test(word_line) 
+                            if word_line.length < 15
+                                continue 
+                        else if word_line.length < 30
                             continue
                         #console.log word_line
                         sentences.push 

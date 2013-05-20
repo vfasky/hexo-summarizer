@@ -144,9 +144,11 @@
             }
             word_line = rs.join('').toString();
             if (rs.length) {
-              if (/.*[\u4e00-\u9fa5]+.*$/.test(word_line) && word_line.length < 10) {
-                continue;
-              } else if (word_line.length < 20) {
+              if (/.*[\u4e00-\u9fa5]+.*$/.test(word_line)) {
+                if (word_line.length < 15) {
+                  continue;
+                }
+              } else if (word_line.length < 30) {
                 continue;
               }
               sentences.push({
