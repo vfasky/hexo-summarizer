@@ -100,7 +100,7 @@ summarize = (html) ->
     sentences = []
     for v in txt.split('\n')
         for v in v.split('。')
-            for v2 in v.split('.')
+            for v2 in v.split('. ')
                 v2 = v2.trim()
                 if v2 != ''
                     word_line = v2.toString().trim()

@@ -129,7 +129,7 @@
       _ref1 = v.split('。');
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         v = _ref1[_j];
-        _ref2 = v.split('.');
+        _ref2 = v.split('. ');
         for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
           v2 = _ref2[_k];
           v2 = v2.trim();
