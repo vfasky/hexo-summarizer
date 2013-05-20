@@ -69,7 +69,7 @@
           is_in = false;
           for (_k = 0, _len2 = _words.length; _k < _len2; _k++) {
             w = _words[_k];
-            if (w.word.w === word_count.word.w) {
+            if (w.word === word_count.word) {
               is_in = true;
               break;
             }
@@ -135,7 +135,7 @@
           v2 = v2.trim();
           if (v2 !== '') {
             word_line = v2.toString().trim();
-            pattern = new RegExp("[`~@#$^&*()|{}''\\[\\]<>~#%lt￥……&*（）&|【】‘”“'、？]");
+            pattern = new RegExp("[`~#$^&*()|{}''\\[\\]<>~#%lt￥……&*（）&|【】‘”“'、？]");
             rs = [];
             _ref3 = word_line.split('');
             for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {
@@ -162,6 +162,7 @@
     }
     words = [];
     hot_words = get_top_TF(sentences);
+    console.log(hot_words);
     word_count = hot_words.length * .10;
     if (word_count <= 10) {
       word_count = 10;
@@ -198,7 +199,7 @@
       if (k === 10) {
         break;
       }
-      keyword.push(v.word.w);
+      keyword.push(v.word);
     }
     return {
       summarizes: summarizes,

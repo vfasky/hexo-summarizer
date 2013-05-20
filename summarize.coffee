@@ -48,10 +48,11 @@ get_top_TF = (sentences)->
     for v in sentences
         for word in v.words
             word_count = get_word_count(word, sentences)
+            #console.log word_count
             if word_count 
                 is_in = false
                 for w in _words
-                    if w.word.w == word_count.word.w 
+                    if w.word == word_count.word 
                         is_in = true
                         break
                 if false == is_in
@@ -99,7 +100,7 @@ summarize = (html) ->
                 v2 = v2.trim()
                 if v2 != ''
                     word_line = v2.toString().trim()
-                    pattern   = new RegExp("[`~@#$^&*()|{}''\\[\\]<>~#%lt￥……&*（）&|【】‘”“'、？]") 
+                    pattern   = new RegExp("[`~#$^&*()|{}''\\[\\]<>~#%lt￥……&*（）&|【】‘”“'、？]") 
                     rs        = []; 
                     for v3 in word_line.split('')
                         rs.push v3.replace(pattern, '').toString()
@@ -120,6 +121,7 @@ summarize = (html) ->
                     
     words     = []
     hot_words = get_top_TF sentences
+    console.log hot_words
 
     # 取前 10 % 的关键字
     word_count = hot_words.length * .10
@@ -147,10 +149,9 @@ summarize = (html) ->
     keyword = []
     for v, k in hot_words
         break if k == 10
-        keyword.push v.word.w
+        keyword.push v.word
 
 
-    #console.log keyword
     {
         summarizes : summarizes 
         words : keyword
