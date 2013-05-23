@@ -168,7 +168,7 @@
     }
     for (k = _m = 0, _len4 = hot_words.length; _m < _len4; k = ++_m) {
       v = hot_words[k];
-      if (k === word_count) {
+      if (k >= word_count) {
         break;
       }
       words.push(v.word.w);

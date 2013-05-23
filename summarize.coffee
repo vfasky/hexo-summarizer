@@ -132,7 +132,7 @@ summarize = (html) ->
     word_count = 10 if word_count <= 10
 
     for v, k in hot_words
-        break if k == word_count
+        break if k >= word_count
         words.push v.word.w
 
     data = []
